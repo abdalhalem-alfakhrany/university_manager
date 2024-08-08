@@ -2,16 +2,15 @@
 
 import Navbar from "../Components/Navbar.vue";
 import Sidebar from "../Components/Sidebar.vue";
+defineProps({ auth: Object })
 </script>
 
 <template>
-    <div class="antialiased bg-gray-50 dark:bg-gray-900">
-        <Navbar></Navbar>
-        <Sidebar></Sidebar>
-        <main class="p-4 md:ml-64 h-auto pt-20">
+    <section class="bg-white dark:bg-gray-900">
+        <div class="py-8 px-4 mx-auto max-w-2xl lg:py-16">
             <slot></slot>
-        </main>
-    </div>
+        </div>
+    </section>
 </template>
 
 <style scoped></style>

@@ -1,9 +1,9 @@
 <script setup>
+import { Link } from '@inertiajs/vue3';
 defineProps({ auth: Object })
 </script>
 
 <template>
-    {{ auth.name }}
     <nav
         class="bg-white border-b border-gray-200 px-4 py-2.5 dark:bg-gray-800 dark:border-gray-700 fixed left-0 right-0 top-0 z-50">
         <div class="flex flex-wrap justify-between items-center">
@@ -42,20 +42,24 @@ defineProps({ auth: Object })
                     </svg>
                 </button>
 
-                <button type="button"
+                <button v-if="auth.avatar" type="button"
                     class="flex mx-3 text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
                     id="user-menu-button" aria-expanded="false" data-dropdown-toggle="dropdown">
                     <span class="sr-only">Open user menu</span>
-                    <img class="w-8 h-8 rounded-full"
+                    <img  class="w-8 h-8 rounded-full"
                         src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/michael-gough.png"
                         alt="user photo" />
                 </button>
-                <!-- Dropdown menu -->
+                <button v-else type="button"
+                    class="flex items-center justify-center mx-3 text-sm w-8 h-8 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
+                    id="user-menu-button" aria-expanded="false" data-dropdown-toggle="dropdown">
+                    <span class="text-2xl text-bold">{{ auth.name[0] }}</span>
+                </button>
                 <div class="hidden z-50 my-4 w-56 text-base list-none bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600 rounded-xl"
                     id="dropdown">
                     <div class="py-3 px-4">
-                        <span class="block text-sm font-semibold text-gray-900 dark:text-white">Neil Sims</span>
-                        <span class="block text-sm text-gray-900 truncate dark:text-white">name@flowbite.com</span>
+                        <span class="block text-sm font-semibold text-gray-900 dark:text-white">{{ auth.name }}</span>
+                        <span class="block text-sm text-gray-900 truncate dark:text-white">{{ auth.email }}</span>
                     </div>
                     <ul class="py-1 text-gray-700 dark:text-gray-300" aria-labelledby="dropdown">
                         <li>
@@ -71,9 +75,9 @@ defineProps({ auth: Object })
                     </ul>
                     <ul class="py-1 text-gray-700 dark:text-gray-300" aria-labelledby="dropdown">
                         <li>
-                            <a href="#"
-                                class="block py-2 px-4 text-sm hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Sign
-                                out</a>
+                            <Link
+                                class="block py-2 px-4 text-sm hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                                :href="route('logout')" method="delete">Sign out</Link>
                         </li>
                     </ul>
                 </div>
